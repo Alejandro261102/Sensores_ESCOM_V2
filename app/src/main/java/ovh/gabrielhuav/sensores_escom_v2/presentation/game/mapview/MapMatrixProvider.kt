@@ -77,6 +77,7 @@ class MapMatrixProvider {
         const val MAP_BIBLIOTECA_ESIA = "biblioteca_esia"
         const val MAP_EDIFICIO_ESIA = "edificio_esia"
         const val MAP_SALON_ESIA="salon_esia"
+        const val MAP_LABRV = "labrv"
 
         fun normalizeMapName(mapName: String?): String {
             if (mapName.isNullOrBlank()) return MAP_MAIN
@@ -136,6 +137,7 @@ class MapMatrixProvider {
                 lowerMap.contains("plazaVistaNorte") -> MAP_PLAZA_VISTA_NORTE
                 // Cidetec
                 lowerMap.contains("linda") || lowerMap.contains("lindavista") -> MAP_CIDETEC
+                lowerMap.contains("labrv") || lowerMap.contains("labrv") -> MAP_LABRV
                 // edificio ia
                 lowerMap.contains("ia_baja") || lowerMap.contains("edificio_ia_bajo") -> MAP_EDIFICIO_IA_BAJO
                 lowerMap.contains("ia_medio") || lowerMap.contains("edificio_ia_medio") -> MAP_EDIFICIO_IA_MEDIO
@@ -316,6 +318,7 @@ class MapMatrixProvider {
                 MAP_EDIFICIO_ESIA -> createEdificioESIAMatrix()
                 MAP_SALON_ESIA -> getSalonESIAMatrix()
 
+                MAP_LABRV -> createLabRVMatrix()
                 else -> createDefaultMatrix() // Por defecto, un mapa básico
             }
         }
@@ -845,40 +848,330 @@ class MapMatrixProvider {
             // Las coordenadas se interpretan como matrix[y][x]
             // ============================================================
 
-            // 🔹 Pared 1: (10,21) → (10,37)
-            for (i in 21..37) {
-                val j = 10
+            // 🔹 Pared 1(lat izq): (2,20) → (2,38)
+            for (i in 20..38) {
+                val j = 2
                 matrix[i][j] = INACCESSIBLE
             }
 
-            // 🔹 Pared 2: (10,3) → (10,18)
-            for (i in 3..18) {
-                val j = 10
+            // 🔹 Pared 2(lat izq): (2,6) → (2,16)
+            for (i in 6..16) {
+                val j = 2
                 matrix[i][j] = INACCESSIBLE
             }
 
-            // 🔹 Pared 3: (10,37) → (30,37)
-            for (j in 10..30) {
-                val i = 37
+            // 🔹 Pared 3 (abajo): (11,32) → (37,32)
+            for (j in 11..37) {
+                val i = 32
                 matrix[i][j] = INACCESSIBLE
             }
 
-            // 🔹 Pared 4: (30,37) → (30,3)
-            for (i in 3..37) {
-                val j = 30
+            // 🔹 Pared 4(lat der): (37,6) → (37,32)
+            for (i in 6..32) {
+                val j = 37
                 matrix[i][j] = INACCESSIBLE
             }
 
-            // 🔹 Pared 5: (10,3) → (30,3)
-            for (j in 10..30) {
-                val i = 3
+            // 🔹 Pared 5(arriba): (2,6) → (37,6)
+            for (j in 2..37) {
+                val i = 6
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 6(Lat der abajo): (11,32) → (11,38)
+            for (i in 32..38) {
+                val j = 11
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 7(interna estaciona ): (32,6) → (32,32)
+            for (i in 6..32) {
+                val j = 32
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 8: (12,6) → (12,19)
+            for (i in 6..19) {
+                val j = 12
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 9: (12,26) → (12,31)
+            for (i in 26..31) {
+                val j = 12
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 10: (16,25) → (16,31)
+            for (i in 25..31) {
+                val j = 16
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 11: (19,25) → (19,31)
+            for (i in 25..31) {
+                val j = 19
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 12: (22,25) → (22,31)
+            for (i in 25..31) {
+                val j = 22
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 13: (17,6) → (17,14)
+            for (i in 6..14) {
+                val j = 17
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 14: (22,6) → (22,14)
+            for (i in 6..14) {
+                val j = 22
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 15: (24,6) → (24,14)
+            for (i in 6..14) {
+                val j = 24
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 16: (12,20) → (17,20)
+            for (j in 12..17) {
+                val i = 20
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 17: (17,14) → (26,14)
+            for (j in 17..26) {
+                val i = 14
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 18: (16,25) → (32,25)
+            for (j in 16..32) {
+                val i = 25
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 19: (26,14) → (26,25)
+            for (i in 14..25) {
+                val j = 26
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 20: (18,14) → (18,20)
+            for (i in 14..20) {
+                val j = 18
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 21: (12,16) → (18,16)
+            for (j in 12..18) {
+                val i = 16
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 22: (16,25) → (32,25)
+            for (j in 26..32) {
+                val i = 15
                 matrix[i][j] = INACCESSIBLE
             }
 
             // ============================================================
             // 3️⃣ Punto interactivo: salida hacia Zacatenco o entrada
             // ============================================================
-            matrix[22][11] = INTERACTIVE // (x=11, y=22)
+            matrix[18][3] = INTERACTIVE // (x=3, y=18)
+            matrix[25][25] = INTERACTIVE // (x=25, y=25)
+
+            // )
+
+            return matrix
+        }
+
+        // ============================================================
+// Función para crear la matriz del mapa de LabRV-Cidetec
+// ============================================================
+        private fun createLabRVMatrix(): Array<Array<Int>> {
+            // Empezamos con una matriz donde todo es un camino (PATH) por defecto
+            val matrix = Array(MAP_HEIGHT) { Array(MAP_WIDTH) { PATH } }
+
+            // 1️⃣ Bordes exteriores (muros generales)
+            for (i in 0 until MAP_HEIGHT) {
+                for (j in 0 until MAP_WIDTH) {
+                    if (i == 0 || i == MAP_HEIGHT - 1 || j == 0 || j == MAP_WIDTH - 1) {
+                        matrix[i][j] = WALL
+                    }
+                }
+            }
+
+            // ============================================================
+            // 2️⃣ PAREDES INTERNAS (INACCESSIBLE = 1)
+            // Las coordenadas se interpretan como matrix[y][x]
+            // ============================================================
+
+            // 🔹 Pared 1(lat izq): (2,6) → (2,32)
+            for (i in 6..32) {
+                val j = 2
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 2(lat der): (37,6) → (37,32)
+            for (i in 6..32) {
+                val j = 37
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 3(arriba): (2,6) → (37,6)
+            for (j in 2..37) {
+                val i = 6
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 4(abajo): (9,32) → (37,32)
+            for (j in 9..37) {
+                val i = 32
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 5(abajo2): (2,32) → (4,32)
+            for (j in 2..4) {
+                val i = 32
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Obstaculo 1
+            // 🔹 Pared 1(lat izq): (8,17) → (8,24)
+            for (i in 17..24) {
+                val j = 8
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 2(lat der): (18,17) → (18,24)
+            for (i in 17..24) {
+                val j = 18
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 3(arriba): (8,17) → (18,17)
+            for (j in 8..18) {
+                val i = 17
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 4(abajo): (8,24) → (18,24)
+            for (j in 8..18) {
+                val i = 24
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Obstaculo 2
+            // 🔹 Pared 1(lat izq): (23,16) → (23,25)
+            for (i in 16..25) {
+                val j = 23
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 2(lat der): (26,16) → (26,25)
+            for (i in 16..25) {
+                val j = 26
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 3(arriba): (23,16) → (26,16)
+            for (j in 23..26) {
+                val i = 16
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 4(abajo): (23,25) → (26,25)
+            for (j in 23..26) {
+                val i = 25
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Mesa1
+            // 🔹 Pared 1(lat izq): (6,6) → (6,11)
+            for (i in 6..11) {
+                val j = 6
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 2(lat der): (13,6) → (13,11)
+            for (i in 6..11) {
+                val j = 13
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 4(abajo): (6,11) → (13,11)
+            for (j in 6..13) {
+                val i = 11
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Mesa2
+            // 🔹 Pared 1(lat izq): (16,6) → (16,11)
+            for (i in 6..11) {
+                val j = 16
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 2(lat der): (24,6) → (24,11)
+            for (i in 6..11) {
+                val j = 24
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 4(abajo): (16,11) → (24,11)
+            for (j in 16..24) {
+                val i = 11
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Obstaculo 3
+            // 🔹 Pared 1(lat izq): (33,10) → (33,18)
+            for (i in 10..18) {
+                val j = 33
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 3(arriba): (33,10) → (37,10)
+            for (j in 33..37) {
+                val i = 10
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 4(abajo): (33,18) → (37,18)
+            for (j in 33..37) {
+                val i = 18
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Obstaculo 4
+            // 🔹 Pared 1(lat izq): (33,21) → (33,28)
+            for (i in 21..28) {
+                val j = 33
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 3(arriba): (33,21) → (37,21)
+            for (j in 33..37) {
+                val i = 21
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // 🔹 Pared 4(abajo): (33,28) → (37,28)
+            for (j in 33..37) {
+                val i = 28
+                matrix[i][j] = INACCESSIBLE
+            }
+
+            // ============================================================
+            // 3️⃣ Punto interactivo: salida hacia Zacatenco o entrada
+            // ============================================================
+            matrix[30][7] = INTERACTIVE // (x=7, y=30)
 
             return matrix
         }
@@ -3427,6 +3720,8 @@ class MapMatrixProvider {
                 MAP_PLAZA_TORRES_N1 -> Pair(20, 16) //Entrada cinepolis plaza torres
                 MAP_ESIA -> Pair(25, 35) // Posición inicial en ESIA (cerca de la entrada)
                 MAP_BIBLIOTECA_ESIA -> Pair(15, 25)
+                MAP_CIDETEC -> Pair(3,18) // Posición inicial en CIDETEC
+                MAP_LABRV -> Pair(7,30) // Posición inicial en LABRV
                 else -> Pair(MAP_WIDTH / 2, MAP_HEIGHT / 2)
             }
         }
